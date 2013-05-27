@@ -1,7 +1,7 @@
 package reinventing_the_wheel.java.util;
 
 import org.junit.After;
-import org.junit.Assert;
+
 import org.junit.Before;
 import org.junit.Test;
 
@@ -17,9 +17,11 @@ import static org.junit.Assert.*;
  * To change this template use File | Settings | File Templates.
  */
 public class ArrayListTest {
+
+    ArrayList<Object> objects;
     @Before
     public void setUp() throws Exception {
-
+        objects = new ArrayList<Object>();
     }
 
     @After
@@ -35,7 +37,6 @@ public class ArrayListTest {
 
     @Test
     public void testIsEmptyWhenEmpty(){
-        final ArrayList<Object> objects = new ArrayList<Object>();
         assertTrue(objects.isEmpty());
     }
 
@@ -47,12 +48,53 @@ public class ArrayListTest {
 
 
     @Test
-    public void testGet() throws Exception {
-
+    public void testEmptySize() throws Exception {
+        final ArrayList<Object> empty = new ArrayList<Object>(Arrays.asList());
+        assertEquals(0,empty.size());
+    }
+    @Test
+    public void testNonEmptySize() throws Exception {
+        final ArrayList<Object> one = new ArrayList<Object>(Arrays.asList("One"));
+        assertEquals(1,one.size());
     }
 
     @Test
-    public void testSize() throws Exception {
-
+    public void testContains() {
+        final ArrayList<Object> al = new ArrayList<Object>(Arrays.asList("One","two","Three","Four"));
+        assertTrue(al.contains("One"));
+        assertTrue(al.contains("Four"));
+        assertFalse(al.contains("Two"));
+        assertFalse(al.contains("alskjdl"));
     }
+
+    @Test
+    public void testIndexOfNull() {
+        final ArrayList<Object> al = new ArrayList<Object>(Arrays.asList("zero","one","two","three",null));
+        assertEquals(4,al.indexOf(null));
+    }
+
+    @Test
+    public void testIndexOfNonExistent() {
+        final ArrayList<Object> al = new ArrayList<Object>(Arrays.asList("zero","one","two","three",null));
+        assertEquals(-1,al.indexOf("nonExistent"));
+    }
+    @Test
+    public void testIndexOf() {
+        final ArrayList<Object> al = new ArrayList<Object>(Arrays.asList("zero","one","two","three",null));
+        assertEquals(0,al.indexOf("zero"));
+        assertEquals(1,al.indexOf("one"));
+        assertEquals(2,al.indexOf("two"));
+    }
+
+    @Test
+    public void testIndexOfGetsOnlyFirstIndex(){
+        final ArrayList<Object> al = new ArrayList<Object>(Arrays.asList("zero","one","one","two","three",null));
+        assertEquals(0,al.indexOf("zero"));
+        assertNotEquals(2,al.indexOf("one"));
+    }
+
+
+
+
+
 }

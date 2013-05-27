@@ -21,6 +21,12 @@ public class      ArrayList <E>
     public ArrayList() {
         this(10);
     }
+
+    @Override
+    public boolean add(E e) {
+            return super.add(e);
+    }
+
     public ArrayList(Collection<? extends E> c){
         store = c.toArray();
         size  = store.length;
@@ -46,7 +52,21 @@ public class      ArrayList <E>
 
     @Override
     public boolean contains(Object o) {
-        return false;
+        return indexOf(o) > -1;
+    }
+
+    @Override
+    public int indexOf(Object o) {
+        if(o == null){
+            for(int i = 0 ;i < size; i ++){
+                if(store[i] == null) return i;
+            }
+        } else {
+            for(int i = 0 ; i < size; i ++){
+                if(o.equals(store[i])) return i;
+            }
+        }
+        return -1;
     }
 
     @Override
